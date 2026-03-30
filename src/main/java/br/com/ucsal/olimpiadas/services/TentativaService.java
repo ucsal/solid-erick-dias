@@ -2,19 +2,23 @@ package br.com.ucsal.olimpiadas.services;
 
 import br.com.ucsal.olimpiadas.Tentativa;
 import br.com.ucsal.olimpiadas.Resposta;
-import java.util.ArrayList;
+import br.com.ucsal.olimpiadas.repositories.TentativaRepositorio;
 import java.util.List;
 
 public class TentativaService {
 
-    private final List<Tentativa> tentativas = new ArrayList<>();
+    private final TentativaRepositorio tentativaRepositorio = new TentativaRepositorio();
 
     public void adicionarTentativa(Tentativa tentativa) {
-        tentativas.add(tentativa);
+        tentativaRepositorio.adicionarTentativa(tentativa);
     }
 
     public List<Tentativa> listarTentativas() {
-        return new ArrayList<>(tentativas);
+        return tentativaRepositorio.listarTentativas();
+    }
+
+    public Tentativa buscarTentativaPorId(long id) {
+        return tentativaRepositorio.buscarTentativaPorId(id);
     }
 
     public int calcularNota(Tentativa tentativa) {
