@@ -102,7 +102,42 @@ public class App {
     }
 
     static void cadastrarQuestao() {
-        System.out.println("Questão cadastrada com sucesso.");
+        if (provaService.listarProvas().isEmpty()) {
+            System.out.println("Nenhuma prova cadastrada.");
+            return;
+        }
+
+        System.out.println("Selecione uma prova para adicionar a questão:");
+        provaService.listarProvas().forEach(prova ->
+            System.out.println(prova.getId() + ") " + prova.getTitulo())
+        );
+        System.out.print("> ");
+        long provaId = Long.parseLong(in.nextLine());
+        var prova = provaService.buscarProvaPorId(provaId);
+
+        if (prova == null) {
+            System.out.println("Prova não encontrada.");
+            return;
+        }
+
+        System.out.print("Enunciado da questão: ");
+        var enunciado = in.nextLine();
+
+        System.out.print("Resposta correta (A–E): ");
+        var respostaCorreta = in.nextLine().toUpperCase();
+
+        if (!respostaCorreta.matches("[A-E]")) {
+            System.out.println("Resposta inválida. Deve ser uma letra entre A e E.");
+            return;
+        }
+
+        var questao = new Questao();
+        questao.setId(proximaQuestaoId++);
+        questao.setEnunciado(enunciado);
+        questao.setRespostaCorreta(respostaCorreta);
+
+        prova.adicionarQuestao(questao);
+        System.out.println("Questão adicionada com sucesso à prova " + prova.getTitulo() + ".");
     }
 
     static void aplicarProva() {
