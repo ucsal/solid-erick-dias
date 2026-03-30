@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ExemploTest {
+public class
+ExemploTest {
 
     @Test
     void teste() {

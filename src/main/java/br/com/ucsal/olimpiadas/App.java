@@ -193,6 +193,8 @@ public class App {
 
         tentativaService.adicionarTentativa(tentativa);
         System.out.println("Prova aplicada com sucesso para o participante " + participante.getNome() + ".");
+        System.out.println("Pressione Enter para voltar ao menu principal...");
+        in.nextLine(); // Aguarda o usuário pressionar Enter antes de voltar ao menu principal
     }
 
     static void seed() {
