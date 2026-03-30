@@ -2,6 +2,7 @@ package br.com.ucsal.olimpiadas;
 
 import br.com.ucsal.olimpiadas.services.ParticipanteService;
 import br.com.ucsal.olimpiadas.services.ProvaService;
+import br.com.ucsal.olimpiadas.services.TentativaService;
 import java.util.Scanner;
 
 public class App {
@@ -12,6 +13,7 @@ public class App {
 
     static final ParticipanteService participanteService = new ParticipanteService();
     static final ProvaService provaService = new ProvaService();
+    static final TentativaService tentativaService = new TentativaService();
     static final Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -90,7 +92,49 @@ public class App {
     }
 
     static void aplicarProva() {
-        System.out.println("Prova aplicada com sucesso.");
+        if (participanteService.listarParticipantes().isEmpty()) {
+            System.out.println("Nenhum participante cadastrado.");
+            return;
+        }
+
+        if (provaService.listarProvas().isEmpty()) {
+            System.out.println("Nenhuma prova cadastrada.");
+            return;
+        }
+
+        System.out.println("Selecione um participante:");
+        participanteService.listarParticipantes().forEach(participante ->
+            System.out.println(participante.getId() + ") " + participante.getNome())
+        );
+        System.out.print("> ");
+        long participanteId = Long.parseLong(in.nextLine());
+        var participante = participanteService.buscarParticipantePorId(participanteId);
+
+        if (participante == null) {
+            System.out.println("Participante não encontrado.");
+            return;
+        }
+
+        System.out.println("Selecione uma prova:");
+        provaService.listarProvas().forEach(prova ->
+            System.out.println(prova.getId() + ") " + prova.getTitulo())
+        );
+        System.out.print("> ");
+        long provaId = Long.parseLong(in.nextLine());
+        var prova = provaService.buscarProvaPorId(provaId);
+
+        if (prova == null) {
+            System.out.println("Prova não encontrada.");
+            return;
+        }
+
+        var tentativa = new Tentativa();
+        tentativa.setId(proximaTentativaId++);
+        tentativa.setParticipanteId(participanteId);
+        tentativa.setProvaId(provaId);
+
+        tentativaService.adicionarTentativa(tentativa);
+        System.out.println("Prova aplicada com sucesso para o participante " + participante.getNome() + ".");
     }
 
     static void seed() {
