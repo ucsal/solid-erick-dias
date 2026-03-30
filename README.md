@@ -6,6 +6,7 @@
 - **Serviços**: Criados `ParticipanteService`, `ProvaService` e `TentativaService` para encapsular as regras de negócio.
 - **Repositórios**: Criados `ParticipanteRepositorio`, `ProvaRepositorio` e `TentativaRepositorio` para gerenciar os dados.
 - **Organização**: Pastas organizadas em `services` e `repositories` para melhor separação de responsabilidades.
+- **Cadastro de Questões**: Melhorado para permitir a inclusão de alternativas (A, B, C, D, E) e seleção da correta, facilitando futuras expansões como responder questões via interface ou adicionar novas regras de negócio.
 
 ## Aplicação dos Princípios SOLID
 
