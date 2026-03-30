@@ -64,6 +64,13 @@ public class Questao {
 		this.alternativaCorreta = normalizar(alternativaCorreta);
 	}
 
+	public void setRespostaCorreta(String respostaCorreta) {
+		if (respostaCorreta == null || respostaCorreta.length() != 1) {
+			throw new IllegalArgumentException("Resposta correta deve ser uma única letra entre A e E.");
+		}
+		this.alternativaCorreta = normalizar(respostaCorreta.charAt(0));
+	}
+
 	public boolean isRespostaCorreta(char marcada) {
 		return normalizar(marcada) == alternativaCorreta;
 	}
