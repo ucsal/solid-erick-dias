@@ -75,7 +75,7 @@ public class App {
         }
 
         var prova = new Prova();
-        prova.setId(provaService.listarProvas().size() + 1);
+        prova.setId(proximaProvaId++); // Usando proximaProvaId para gerar o ID único
         prova.setTitulo(titulo);
 
         provaService.adicionarProva(prova);
@@ -123,6 +123,14 @@ public class App {
         System.out.print("Enunciado da questão: ");
         var enunciado = in.nextLine();
 
+        System.out.println("Digite as alternativas (A, B, C, D, E):");
+        String[] alternativas = new String[5];
+        for (int i = 0; i < 5; i++) {
+            System.out.print((char) ('A' + i) + ") ");
+            alternativas[i] = in.nextLine();
+        }
+
+        System.out.println("Alternativas disponíveis: A, B, C, D, E");
         System.out.print("Resposta correta (A–E): ");
         var respostaCorreta = in.nextLine().toUpperCase();
 
@@ -134,6 +142,7 @@ public class App {
         var questao = new Questao();
         questao.setId(proximaQuestaoId++);
         questao.setEnunciado(enunciado);
+        questao.setAlternativas(alternativas);
         questao.setRespostaCorreta(respostaCorreta);
 
         prova.adicionarQuestao(questao);
