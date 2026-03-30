@@ -1,6 +1,7 @@
 package br.com.ucsal.olimpiadas;
 
 import br.com.ucsal.olimpiadas.services.ParticipanteService;
+import br.com.ucsal.olimpiadas.services.ProvaService;
 import java.util.Scanner;
 
 public class App {
@@ -10,6 +11,7 @@ public class App {
     static long proximaTentativaId = 1;
 
     static final ParticipanteService participanteService = new ParticipanteService();
+    static final ProvaService provaService = new ProvaService();
     static final Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -61,11 +63,6 @@ public class App {
         System.out.println("Participante cadastrado: " + participante.getId());
     }
 
-    static void listarTentativas() {
-        System.out.println("\n--- Tentativas ---");
-        // Implementação futura para listar tentativas
-    }
-
     static void cadastrarProva() {
         System.out.print("Título da prova: ");
         var titulo = in.nextLine();
@@ -75,7 +72,17 @@ public class App {
             return;
         }
 
-        System.out.println("Prova cadastrada com sucesso.");
+        var prova = new Prova();
+        prova.setId(provaService.listarProvas().size() + 1);
+        prova.setTitulo(titulo);
+
+        provaService.adicionarProva(prova);
+        System.out.println("Prova cadastrada: " + prova.getId());
+    }
+
+    static void listarTentativas() {
+        System.out.println("\n--- Tentativas ---");
+        // Implementação futura para listar tentativas
     }
 
     static void cadastrarQuestao() {
