@@ -83,8 +83,22 @@ public class App {
     }
 
     static void listarTentativas() {
+        if (tentativaService.listarTentativas().isEmpty()) {
+            System.out.println("Nenhuma tentativa registrada.");
+            return;
+        }
+
         System.out.println("\n--- Tentativas ---");
-        // Implementação futura para listar tentativas
+        tentativaService.listarTentativas().forEach(tentativa -> {
+            var participante = participanteService.buscarParticipantePorId(tentativa.getParticipanteId());
+            var prova = provaService.buscarProvaPorId(tentativa.getProvaId());
+
+            if (participante != null && prova != null) {
+                System.out.println("Tentativa ID: " + tentativa.getId() + ", Participante: " + participante.getNome() + ", Prova: " + prova.getTitulo());
+            } else {
+                System.out.println("Tentativa ID: " + tentativa.getId() + " (dados incompletos)");
+            }
+        });
     }
 
     static void cadastrarQuestao() {
