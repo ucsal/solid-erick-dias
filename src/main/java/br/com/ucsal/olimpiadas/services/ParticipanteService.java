@@ -1,25 +1,22 @@
 package br.com.ucsal.olimpiadas.services;
 
 import br.com.ucsal.olimpiadas.Participante;
-import java.util.ArrayList;
+import br.com.ucsal.olimpiadas.repositories.ParticipanteRepositorio;
 import java.util.List;
 
 public class ParticipanteService {
 
-    private final List<Participante> participantes = new ArrayList<>();
+    private final ParticipanteRepositorio participanteRepositorio = new ParticipanteRepositorio();
 
     public void adicionarParticipante(Participante participante) {
-        participantes.add(participante);
+        participanteRepositorio.adicionarParticipante(participante);
     }
 
     public Participante buscarParticipantePorId(long id) {
-        return participantes.stream()
-                .filter(participante -> participante.getId() == id)
-                .findFirst()
-                .orElse(null);
+        return participanteRepositorio.buscarParticipantePorId(id);
     }
 
     public List<Participante> listarParticipantes() {
-        return new ArrayList<>(participantes);
+        return participanteRepositorio.listarParticipantes();
     }
 }
