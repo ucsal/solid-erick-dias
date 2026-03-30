@@ -1,25 +1,22 @@
 package br.com.ucsal.olimpiadas.services;
 
 import br.com.ucsal.olimpiadas.Prova;
-import java.util.ArrayList;
+import br.com.ucsal.olimpiadas.repositories.ProvaRepositorio;
 import java.util.List;
 
 public class ProvaService {
 
-    private final List<Prova> provas = new ArrayList<>();
+    private final ProvaRepositorio provaRepositorio = new ProvaRepositorio();
 
     public void adicionarProva(Prova prova) {
-        provas.add(prova);
+        provaRepositorio.adicionarProva(prova);
     }
 
     public Prova buscarProvaPorId(long id) {
-        return provas.stream()
-                .filter(prova -> prova.getId() == id)
-                .findFirst()
-                .orElse(null);
+        return provaRepositorio.buscarProvaPorId(id);
     }
 
     public List<Prova> listarProvas() {
-        return new ArrayList<>(provas);
+        return provaRepositorio.listarProvas();
     }
 }
